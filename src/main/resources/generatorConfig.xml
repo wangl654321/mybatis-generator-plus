@@ -14,7 +14,7 @@
         <!-- 这里的type里写的是你的实现类的类全路径 -->
         <commentGenerator type="org.mybatis.generator.MyCommentGenerator">
             <!--  是否生成的注释 false:是 true:否 -->
-            <property name="suppressAllComments" value="true" />
+            <property name="suppressAllComments" value="false" />
         </commentGenerator>
 
         <!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
