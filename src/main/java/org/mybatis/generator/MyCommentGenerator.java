@@ -192,8 +192,6 @@ public class MyCommentGenerator implements CommentGenerator {
         sb.append(introspectedTable.getFullyQualifiedTable());
         field.addJavaDocLine(sb.toString().replace("\n", " "));
         field.addJavaDocLine(" */");
-
-
     }
 
     /**
@@ -290,7 +288,7 @@ public class MyCommentGenerator implements CommentGenerator {
 
         String author = properties.getProperty("author");
         logger.info(topLevelClass.getType().getShortName() + "方法进入");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         topLevelClass.addJavaDocLine("/***");
         topLevelClass.addJavaDocLine(" *");
         topLevelClass.addJavaDocLine(" *");
