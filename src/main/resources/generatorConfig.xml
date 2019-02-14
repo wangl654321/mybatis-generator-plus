@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-<generatorConfiguration>  
-<!-- 数据库驱动-->  
-    <context id="DB2Tables"  targetRuntime="MyBatis3">
-		<!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
         <property name="javaFileEncoding" value="UTF-8"/>
-         <!--格式化java代码 -->
-        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+        <!--格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
         <!-- JavaBean 实现 序列化 接口 -->
         <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
         <!-- entity时,生成toString -->
@@ -14,7 +15,9 @@
         <!-- 这里的type里写的是你的实现类的类全路径 -->
         <commentGenerator type="org.mybatis.generator.MyCommentGenerator">
             <!--  是否生成的注释 false:是 true:否 -->
-            <property name="suppressAllComments" value="false" />
+            <property name="suppressAllComments" value="false"/>
+            <!--  作者名字 -->
+            <property name="author" value=""/>
         </commentGenerator>
 
         <!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
@@ -35,25 +38,26 @@
             <property name="useInformationSchema" value="true"></property>
         </jdbcConnection>
 
-        <javaTypeResolver>  
-            <property name="forceBigDecimals" value="false"/>  
-        </javaTypeResolver>  
-        <!-- 生成模型的包名和位置-->  
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置-->
         <javaModelGenerator targetPackage="com.generator.entity" targetProject="C:\Users\wangl\Desktop">
-            <property name="enableSubPackages" value="true"/>  
-            <property name="trimStrings" value="true"/>  
-        </javaModelGenerator>  
-        <!-- 生成映射文件的包名和位置-->  
-        <sqlMapGenerator targetPackage="com.generator.mapper"  targetProject="C:\Users\wangl\Desktop">
-            <property name="enableSubPackages" value="true"/>  
-        </sqlMapGenerator>  
-        <!-- 生成DAO的包名和位置-->  
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.generator.dao"  targetProject="C:\Users\wangl\Desktop">
-            <property name="enableSubPackages" value="true"/>  
-        </javaClientGenerator>  
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="com.generator.mapper" targetProject="C:\Users\wangl\Desktop">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.generator.dao" targetProject="C:\Users\wangl\Desktop">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
         <table schema="" tableName="channel_key" domainObjectName="ChannelKey" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
 
-    </context>  
+    </context>
 </generatorConfiguration>  

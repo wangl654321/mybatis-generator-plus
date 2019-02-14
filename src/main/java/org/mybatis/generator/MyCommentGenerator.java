@@ -13,7 +13,6 @@ import org.mybatis.generator.config.TableConfiguration;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Set;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
@@ -239,23 +238,33 @@ public class MyCommentGenerator implements CommentGenerator {
         String delete = "delete";
         String update = "update";
         String select = "select";
+
         method.addJavaDocLine("/**");
-        if (insert.contains(name)) {
-            method.addJavaDocLine(" * 保存");
+        if (name.contains(insert)) {
+            if(name.toLowerCase().contains(select)){
+                method.addJavaDocLine(" * 保存带标签");
+            }else {
+                method.addJavaDocLine(" * 保存不带标签");
+            }
         }
-        if (delete.contains(name)) {
-            method.addJavaDocLine(" * 删除");
+        if (name.contains(delete)) {
+            method.addJavaDocLine(" * 根据主键删除");
         }
-        if (update.contains(name)) {
-            method.addJavaDocLine(" * 更新");
+        if (name.contains(update)) {
+            if(name.toLowerCase().contains(select)){
+                method.addJavaDocLine(" * 更新带标签");
+            }else {
+                method.addJavaDocLine(" * 更新不带标签");
+            }
         }
-        if (select.contains(name)) {
-            method.addJavaDocLine(" * 查询");
+        if (name.contains(select)) {
+            method.addJavaDocLine(" * 根据主键查询");
         }
         method.addJavaDocLine(" * ");
         String param = method.getParameters().get(0).getName();
         method.addJavaDocLine(" * @param " + param);
-        method.addJavaDocLine(" * @return ");
+        String shortName = method.getReturnType().getShortName();
+        method.addJavaDocLine(" * @return " + shortName);
         method.addJavaDocLine(" */");
     }
 
@@ -266,6 +275,7 @@ public class MyCommentGenerator implements CommentGenerator {
      */
     @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
+
         logger.info(compilationUnit.getType().getShortName() + ".java 方法进入");
     }
 
@@ -278,6 +288,7 @@ public class MyCommentGenerator implements CommentGenerator {
     @Override
     public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 
+        String author = properties.getProperty("author");
         logger.info(topLevelClass.getType().getShortName() + "方法进入");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         topLevelClass.addJavaDocLine("/***");
@@ -287,7 +298,7 @@ public class MyCommentGenerator implements CommentGenerator {
         String remarks = introspectedTable.getRemarks();
         topLevelClass.addJavaDocLine(" * 描    述: " + tableConfiguration + " " + remarks);
         topLevelClass.addJavaDocLine(" *");
-        topLevelClass.addJavaDocLine(" * 创 建 者: @author ");
+        topLevelClass.addJavaDocLine(" * 创 建 者: @author " + author);
         topLevelClass.addJavaDocLine(" * 创建时间: " + sdf.format(new Date()));
         topLevelClass.addJavaDocLine(" * 创建描述: ");
         topLevelClass.addJavaDocLine(" *");
