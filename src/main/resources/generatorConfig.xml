@@ -6,11 +6,11 @@
 		<!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
         <property name="javaFileEncoding" value="UTF-8"/>
          <!--格式化java代码 -->
-       <!-- <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
-        &lt;!&ndash; JavaBean 实现 序列化 接口 &ndash;&gt;
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
-        &lt;!&ndash; genenat entity时,生成toString &ndash;&gt;
-        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+        <!-- JavaBean 实现 序列化 接口 -->
+        <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
+        <!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 
         <!-- 这里的type里写的是你的实现类的类全路径 -->
         <commentGenerator type="org.mybatis.generator.MyCommentGenerator">
