@@ -11,11 +11,19 @@
         <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
         <!-- genenat entity时,生成toString -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
-
         <!-- 这里的type里写的是你的实现类的类全路径 -->
         <commentGenerator type="org.mybatis.generator.MyCommentGenerator">
         </commentGenerator>
-        
+
+        <!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                connectionURL="jdbc:oracle:thin:@远程ip地址或localhost:1521:orcl"
+                userId="用户名"
+                password="密码">
+                  针对oracle数据库
+                <property name="remarksReporting"
+                value="true">
+            </property> </jdbcConnection> -->
+
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
