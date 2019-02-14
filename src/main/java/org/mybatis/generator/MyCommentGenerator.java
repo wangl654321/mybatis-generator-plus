@@ -1,5 +1,7 @@
 package org.mybatis.generator;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -10,8 +12,8 @@ import org.mybatis.generator.config.TableConfiguration;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
@@ -34,6 +36,8 @@ import static org.mybatis.generator.internal.util.StringUtility.isTrue;
  *
  */
 public class MyCommentGenerator implements CommentGenerator {
+
+    private static final Logger logger = LogManager.getLogger(MyCommentGenerator.class);
 
     /**
      * properties配置文件
@@ -225,23 +229,27 @@ public class MyCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
+        String toString = "toString";
+        String name = method.getName();
+        if (toString.equals(name)) {
+            return;
+        }
+
         String insert = "insert";
         String delete = "delete";
         String update = "update";
         String select = "select";
-
         method.addJavaDocLine("/**");
-        String name = method.getName();
-        if (name.contains(insert)) {
+        if (insert.contains(name)) {
             method.addJavaDocLine(" * 保存");
         }
-        if (name.contains(delete)) {
+        if (delete.contains(name)) {
             method.addJavaDocLine(" * 删除");
         }
-        if (name.contains(update)) {
+        if (update.contains(name)) {
             method.addJavaDocLine(" * 更新");
         }
-        if (name.contains(select)) {
+        if (select.contains(name)) {
             method.addJavaDocLine(" * 查询");
         }
         method.addJavaDocLine(" * ");
@@ -251,6 +259,57 @@ public class MyCommentGenerator implements CommentGenerator {
         method.addJavaDocLine(" */");
     }
 
+    /**
+     * 给Java文件加注释，这个注释是在文件的顶部，也就是package上面。
+     *
+     * @param compilationUnit
+     */
+    @Override
+    public void addJavaFileComment(CompilationUnit compilationUnit) {
+        logger.info(compilationUnit.getType().getShortName() + ".java 方法进入");
+    }
+
+    /**
+     * 为类添加模型注释
+     *
+     * @param topLevelClass
+     * @param introspectedTable
+     */
+    @Override
+    public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+
+        logger.info(topLevelClass.getType().getShortName() + "方法进入");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        topLevelClass.addJavaDocLine("/***");
+        topLevelClass.addJavaDocLine(" *");
+        topLevelClass.addJavaDocLine(" *");
+        TableConfiguration tableConfiguration = introspectedTable.getTableConfiguration();
+        String remarks = introspectedTable.getRemarks();
+        topLevelClass.addJavaDocLine(" * 描    述: " + tableConfiguration + " " + remarks);
+        topLevelClass.addJavaDocLine(" *");
+        topLevelClass.addJavaDocLine(" * 创 建 者: @author ");
+        topLevelClass.addJavaDocLine(" * 创建时间: " + sdf.format(new Date()));
+        topLevelClass.addJavaDocLine(" * 创建描述: ");
+        topLevelClass.addJavaDocLine(" *");
+        topLevelClass.addJavaDocLine(" * 修 改 者: ");
+        topLevelClass.addJavaDocLine(" * 修改时间: ");
+        topLevelClass.addJavaDocLine(" * 修改描述: ");
+        topLevelClass.addJavaDocLine(" *");
+        topLevelClass.addJavaDocLine(" * 审 核 者: ");
+        topLevelClass.addJavaDocLine(" * 审核时间: ");
+        topLevelClass.addJavaDocLine(" * 审核描述: ");
+        topLevelClass.addJavaDocLine(" *");
+        topLevelClass.addJavaDocLine(" */");
+    }
+
+    /**
+     * 为调用此方法作为根元素的第一个子节点添加注释
+     *
+     * @param xmlElement
+     */
+    @Override
+    public void addRootComment(XmlElement xmlElement) {
+    }
 
     /**
      * 给getter方法加注释
@@ -277,57 +336,6 @@ public class MyCommentGenerator implements CommentGenerator {
         method.addJavaDocLine(sb.toString().replace("\n", " "));
         method.addJavaDocLine(" */");
     }
-
-    /**
-     * 给Java文件加注释，这个注释是在文件的顶部，也就是package上面。
-     *
-     * @param compilationUnit
-     */
-    @Override
-    public void addJavaFileComment(CompilationUnit compilationUnit) {
-    }
-
-    /**
-     * 为模型类添加注释
-     *
-     * @param topLevelClass
-     * @param introspectedTable
-     */
-    @Override
-    public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        topLevelClass.addJavaDocLine("/**");
-        topLevelClass.addJavaDocLine(" *");
-        topLevelClass.addJavaDocLine(" *");
-        TableConfiguration tableConfiguration = introspectedTable.getTableConfiguration();
-        String remarks = introspectedTable.getRemarks();
-        topLevelClass.addJavaDocLine(" * 描    述: " + tableConfiguration + " " + remarks);
-        topLevelClass.addJavaDocLine(" *");
-        topLevelClass.addJavaDocLine(" * 创 建 者: @author ");
-        topLevelClass.addJavaDocLine(" * 创建时间: " + sdf.format(new Date()));
-        topLevelClass.addJavaDocLine(" * 创建描述: ");
-        topLevelClass.addJavaDocLine(" *");
-        topLevelClass.addJavaDocLine(" * 修 改 者: ");
-        topLevelClass.addJavaDocLine(" * 修改时间: ");
-        topLevelClass.addJavaDocLine(" * 修改描述: ");
-        topLevelClass.addJavaDocLine(" *");
-        topLevelClass.addJavaDocLine(" * 审 核 者: ");
-        topLevelClass.addJavaDocLine(" * 审核时间: ");
-        topLevelClass.addJavaDocLine(" * 审核描述: ");
-        topLevelClass.addJavaDocLine(" *");
-        topLevelClass.addJavaDocLine(" */");
-    }
-
-    /**
-     * 为调用此方法作为根元素的第一个子节点添加注释
-     *
-     * @param arg0
-     */
-    @Override
-    public void addRootComment(XmlElement arg0) {
-    }
-
 
     /**
      * 给setter方法加注释
