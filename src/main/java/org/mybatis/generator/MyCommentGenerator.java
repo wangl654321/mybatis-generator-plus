@@ -228,7 +228,7 @@ public class MyCommentGenerator implements CommentGenerator {
             return;
         }
         String toString = "toString";
-        String name = method.getName();
+         String name = method.getName();
         if (toString.equals(name)) {
             return;
         }
