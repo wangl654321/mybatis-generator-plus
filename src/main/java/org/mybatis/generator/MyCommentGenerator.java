@@ -82,7 +82,6 @@ public class MyCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
-
         StringBuilder sb = new StringBuilder();
         innerClass.addJavaDocLine("/**");
         sb.append(" * ");
@@ -275,7 +274,6 @@ public class MyCommentGenerator implements CommentGenerator {
      */
     @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
-
         logger.info(compilationUnit.getType().getShortName() + ".java 方法进入");
     }
 
@@ -365,10 +363,10 @@ public class MyCommentGenerator implements CommentGenerator {
         sb.append(" * ");
         sb.append(introspectedColumn.getRemarks());
         method.addJavaDocLine(sb.toString().replace("\n", " "));
-        Parameter parm = method.getParameters().get(0);
+        Parameter par = method.getParameters().get(0);
         sb.setLength(0);
         sb.append(" * @param ");
-        sb.append(parm.getName());
+        sb.append(par.getName());
         sb.append(" ");
         sb.append(introspectedColumn.getRemarks());
         method.addJavaDocLine(sb.toString().replace("\n", " "));
