@@ -105,6 +105,7 @@ public class MyCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
+        logger.info("为类添加注释");
         StringBuilder sb = new StringBuilder();
         innerClass.addJavaDocLine("/**");
         sb.append(" * ");
@@ -167,6 +168,7 @@ public class MyCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
+        logger.info("为枚举添加注释");
         StringBuilder sb = new StringBuilder();
         innerEnum.addJavaDocLine("/**");
         sb.append(" * ");
